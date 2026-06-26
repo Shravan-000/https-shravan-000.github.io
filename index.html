@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shravan Bhande — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:ital@0;1&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:     #0f1117;
+      --paper:   #f7f6f2;
+      --blue:    #1a52f5;
+      --blue-lt: #e8eeff;
+      --mid:     #6b7280;
+      --border:  #e2e1dc;
+      --white:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw;
+      height: 60px;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 0.875rem; color: var(--mid); transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(100vh - 60px);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 6vw 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem; color: var(--blue);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 16ch;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--blue); }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--mid); max-width: 48ch;
+      margin-bottom: 2.5rem; font-weight: 400;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block; text-decoration: none;
+      padding: .75rem 1.75rem; border-radius: 6px;
+      font-size: 0.9rem; font-weight: 600;
+      transition: transform .15s, box-shadow .15s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,82,245,.2); }
+    .btn-primary { background: var(--blue); color: #fff; }
+    .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--ink); box-shadow: none; }
+
+    /* decorative grid */
+    .hero-grid {
+      position: absolute; right: 4vw; top: 50%; transform: translateY(-50%);
+      display: grid; grid-template-columns: repeat(6,1fr); gap: 10px;
+      opacity: 0.18; pointer-events: none;
+    }
+    .hero-grid span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--blue); display: block;
+    }
+
+    /* ── SECTION SHELL ── */
+    section { padding: 6rem 6vw; }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem; color: var(--blue);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: .75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      margin-bottom: 3rem;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .skill-card:hover { border-color: var(--blue); box-shadow: 0 4px 18px rgba(26,82,245,.1); }
+    .skill-icon { font-size: 1.6rem; margin-bottom: .75rem; }
+    .skill-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: .4rem; }
+    .skill-card p { font-size: 0.85rem; color: var(--mid); line-height: 1.55; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--paper); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,.09); }
+    .project-thumb {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+      background: var(--blue-lt);
+      border-bottom: 1px solid var(--border);
+    }
+    .project-body { padding: 1.5rem; }
+    .project-tag {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem; letter-spacing: 0.06em;
+      background: var(--blue-lt); color: var(--blue);
+      padding: .25rem .6rem; border-radius: 4px;
+      margin-bottom: .75rem; text-transform: uppercase;
+    }
+    .project-body h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: .5rem; }
+    .project-body p { font-size: 0.85rem; color: var(--mid); line-height: 1.6; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--white); border-top: 1px solid var(--border); }
+    .exp-list { display: flex; flex-direction: column; gap: 2rem; }
+    .exp-item {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 1.5rem; padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem; color: var(--mid); padding-top: .15rem;
+    }
+    .exp-content h3 { font-size: 1rem; font-weight: 600; margin-bottom: .15rem; }
+    .exp-company { font-size: 0.85rem; color: var(--blue); font-weight: 500; margin-bottom: .5rem; }
+    .exp-content ul { padding-left: 1.1rem; }
+    .exp-content li { font-size: 0.85rem; color: var(--mid); margin-bottom: .3rem; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--ink); color: var(--paper);
+      text-align: center;
+    }
+    #contact .section-label { color: #6b8fff; }
+    #contact .section-title { color: var(--white); margin-bottom: 1rem; }
+    #contact p { color: #9ca3af; margin-bottom: 2.5rem; font-size: 1rem; }
+    .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--white); text-decoration: none;
+      padding: .65rem 1.25rem; border-radius: 6px;
+      font-size: 0.875rem; font-weight: 500;
+      transition: background .2s;
+    }
+    .contact-chip:hover { background: rgba(255,255,255,.15); }
+
+    footer {
+      background: var(--ink); border-top: 1px solid rgba(255,255,255,.08);
+      text-align: center; padding: 1.5rem;
+      font-size: 0.8rem; color: #6b7280;
+    }
+
+    @media (max-width: 600px) {
+      .hero-grid { display: none; }
+      .exp-item { grid-template-columns: 1fr; gap: .5rem; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SB<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">Available for opportunities · Mumbai</p>
+  <h1>Web Developer &amp; <em>3D Visualizer</em></h1>
+  <p class="hero-sub">
+    I build responsive websites and create architectural & interior 3D visualizations.
+    Certified in Autodesk 3ds Max · Based in Santacruz, Mumbai.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View My Work</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+
+  <!-- dot grid decoration -->
+  <div class="hero-grid" aria-hidden="true">
+    <script>
+      document.currentScript.insertAdjacentHTML('afterend',
+        Array(48).fill('<span></span>').join(''));
+    </script>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">What I work with</p>
+  <h2 class="section-title">Skills</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">🏗️</div>
+      <h3>3D Visualization</h3>
+      <p>Autodesk 3ds Max — interior & architectural modeling, lighting, texturing, and rendering. Certified.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <h3>Front-End Web</h3>
+      <p>HTML5, CSS3, JavaScript (ES6). Responsive, mobile-first websites built from scratch.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <h3>WordPress</h3>
+      <p>Theme setup & customization, plugin configuration, content management, and site optimization.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐍</div>
+      <h3>Programming</h3>
+      <p>Python fundamentals — scripting, data handling, and automation basics.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">📊</div>
+      <h3>Office & Tools</h3>
+      <p>MS Word, Excel, PowerPoint — documentation, reporting, and data management.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <h3>Design Thinking</h3>
+      <p>Blending technical skill with creative direction — from 3D renders to web layouts.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Things I've built</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-thumb">🛋️</div>
+      <div class="project-body">
+        <span class="project-tag">3D Design</span>
+        <h3>Interior 3D Visualization</h3>
+        <p>Designed realistic residential and commercial interiors in Autodesk 3ds Max — including lighting rigs, material mapping, and high-quality renders.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">🏛️</div>
+      <div class="project-body">
+        <span class="project-tag">3D Design</span>
+        <h3>Architectural Walkthrough</h3>
+        <p>Created architectural models and animated walkthroughs to simulate real-world spaces for client presentations.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">💻</div>
+      <div class="project-body">
+        <span class="project-tag">Web Dev</span>
+        <h3>Responsive Business Website</h3>
+        <p>Built multi-page responsive websites using HTML5, CSS3, and JavaScript with mobile-first design and interactive UI elements.</p>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb">🌍</div>
+      <div class="project-body">
+        <span class="project-tag">WordPress</span>
+        <h3>WordPress Site</h3>
+        <p>Built and customized WordPress websites — theme setup, plugin configuration, cross-browser compatibility, and performance optimization.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Where I've worked</p>
+  <h2 class="section-title">Experience</h2>
+  <div class="exp-list">
+    <div class="exp-item">
+      <span class="exp-period">2023</span>
+      <div class="exp-content">
+        <h3>Quality Analysis Intern</h3>
+        <p class="exp-company">NSight Corp</p>
+        <ul>
+          <li>Monitored product and service quality, identifying defects and recommending improvements.</li>
+          <li>Maintained detailed reports and documentation to support team decision-making.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="exp-item">
+      <span class="exp-period">2022</span>
+      <div class="exp-content">
+        <h3>Data Entry Intern</h3>
+        <p class="exp-company">Soham Enterprises</p>
+        <ul>
+          <li>Managed large datasets with high accuracy, ensuring consistency and integrity of records.</li>
+          <li>Reduced data discrepancies by cross-checking entries against source documents.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-label">Let's work together</p>
+  <h2 class="section-title">Get In Touch</h2>
+  <p>Open to web development roles, 3D visualization projects, and internships in Mumbai.</p>
+  <div class="contact-links">
+    <a href="mailto:bhandeshravan07@gmail.com" class="contact-chip">✉️ bhandeshravan07@gmail.com</a>
+    <a href="tel:+918657471980" class="contact-chip">📞 8657471980</a>
+    <a href="https://github.com/Shravan-000" target="_blank" class="contact-chip">💻 GitHub</a>
+  </div>
+</section>
+
+<footer>© 2026 Shravan S. Bhande · Mumbai · <a href="https://shravan-000.github.io" style="color:#6b7280;text-decoration:none;">shravan-000.github.io</a></footer>
+
+</body>
+</html>
